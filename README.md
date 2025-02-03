@@ -1,22 +1,86 @@
-# MyPortfolio
+# three.js
 
-Front-End Developer | Java & Python Programmer | UI/UX Enthusiast 
+[![NPM Package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![NPM Downloads][npm-downloads]][npmtrends-url]
+[![DeepScan][deepscan]][deepscan-url]
+[![Discord][discord]][discord-url]
 
-Hi, I’m G Narendran ! I specialize in crafting seamless and engaging digital experiences by combining technical expertise with creative design. With a strong foundation in front-end development and programming, I bring ideas to life that are not just visually appealing but also functional and user-friendly. 
+#### JavaScript 3D library
 
-💻 Technical Skills:
-- Front-End Development: Mastery of HTML, CSS, JavaScript, Bootstrap. 
-- Programming: Proficient in Java and Python, solving complex problems with efficient solutions. 
-- UI/UX Design: Creating intuitive interfaces that prioritize the user journey while aligning with brand identity. 
+The aim of the project is to create an easy-to-use, lightweight, cross-browser, general-purpose 3D library. The current builds only include WebGL and WebGPU renderers but SVG and CSS3D renderers are also available as addons.
 
-🎯 What Drives Me: 
-I’m passionate about bridging the gap between technology and user experience. Whether it's writing clean, efficient code or designing interfaces that captivate, I strive to deliver exceptional results that leave a lasting impact. 
+[Examples](https://threejs.org/examples/) &mdash;
+[Docs](https://threejs.org/docs/) &mdash;
+[Manual](https://threejs.org/manual/) &mdash;
+[Wiki](https://github.com/mrdoob/three.js/wiki) &mdash;
+[Migrating](https://github.com/mrdoob/three.js/wiki/Migration-Guide) &mdash;
+[Questions](https://stackoverflow.com/questions/tagged/three.js) &mdash;
+[Forum](https://discourse.threejs.org/) &mdash;
+[Discord](https://discord.gg/56GBJwAnUS)
 
-🌱 Always Growing: 
-Technology evolves rapidly, and so do I. From exploring the latest design trends to learning new tools and frameworks, I’m committed to staying ahead of the curve. 
+### Usage
 
-📬 Let’s connect and collaborate! If you’re looking for someone who can bring a balance of creativity and technical know-how to your projects, feel free to reach out. 
+This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
----
+```javascript
+import * as THREE from 'three';
 
-Would you like me to tailor this further or include specific achievements or projects?
+const width = window.innerWidth, height = window.innerHeight;
+
+// init
+
+const camera = new THREE.PerspectiveCamera( 70, width / height, 0.01, 10 );
+camera.position.z = 1;
+
+const scene = new THREE.Scene();
+
+const geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+const material = new THREE.MeshNormalMaterial();
+
+const mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+const renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( width, height );
+renderer.setAnimationLoop( animate );
+document.body.appendChild( renderer.domElement );
+
+// animation
+
+function animate( time ) {
+
+	mesh.rotation.x = time / 2000;
+	mesh.rotation.y = time / 1000;
+
+	renderer.render( scene, camera );
+
+}
+```
+
+If everything goes well, you should see [this](https://jsfiddle.net/v98k6oze/).
+
+### Cloning this repository
+
+Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
+
+```sh
+git clone --depth=1 https://github.com/mrdoob/three.js.git
+```
+
+### Change log
+
+[Releases](https://github.com/mrdoob/three.js/releases)
+
+
+[npm]: https://img.shields.io/npm/v/three
+[npm-url]: https://www.npmjs.com/package/three
+[build-size]: https://badgen.net/bundlephobia/minzip/three
+[build-size-url]: https://bundlephobia.com/result?p=three
+[npm-downloads]: https://img.shields.io/npm/dw/three
+[npmtrends-url]: https://www.npmtrends.com/three
+[deepscan]: https://deepscan.io/api/teams/16600/projects/19901/branches/525701/badge/grade.svg
+[deepscan-url]: https://deepscan.io/dashboard#view=project&tid=16600&pid=19901&bid=525701
+[discord]: https://img.shields.io/discord/685241246557667386
+[discord-url]: https://discord.gg/56GBJwAnUS
+

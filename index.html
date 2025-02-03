@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Student Portfolio - G Narendran</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #333;
+      padding: 0.5em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      animation: slideIn 1s ease-out;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin: 0 1em;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ff9800;
+    }
+
+    section {
+      padding: 4em 2em;
+      min-height: 100vh;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      color: #fff;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .home h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+      text-align: center;
+      animation: textZoom 1s ease-in-out;
+    }
+
+    .about, .skills, .projects, .contact {
+      background: #f4f4f4;
+      margin-top: 4em;
+      border-radius: 10px;
+      padding: 2em;
+      animation: slideUp 1s ease-in-out;
+    }
+
+    .about h2, .skills h2, .projects h2, .contact h2 {
+      text-align: center;
+      margin-bottom: 1em;
+      animation: fadeIn 1.5s;
+    }
+
+    .skills .skill {
+      margin-bottom: 1em;
+      animation: slideRight 1s;
+    }
+
+    .skill {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1em;
+    }
+
+    .skill p {
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background: #ddd;
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: #4caf50;
+      transition: width 1s ease-in-out;
+    }
+
+    .projects .project {
+      margin-bottom: 2em;
+      animation: fadeIn 1.2s;
+    }
+
+    .project .title {
+      font-size: 1.5em;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .project-details p {
+      font-size: 1em;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      animation: slideUp 1s ease-in-out;
+    }
+
+    .contact form input, .contact form textarea {
+      padding: 0.5em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact form button {
+      padding: 0.7em;
+      font-size: 1em;
+      color: #fff;
+      background: #333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact form button:hover {
+      background: #ff9800;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideRight {
+      from {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes textZoom {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="home" class="home">
+    <h1>Welcome to G Narendran's Portfolio</h1>
+    <p>Crafting seamless digital experiences with passion and precision.</p>
+    <canvas id="three-canvas"></canvas>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>Front-End Developer | Java & Python Programmer | UI/UX Enthusiast</p>
+    <p>Hi, I’m G Narendran! I specialize in crafting seamless and engaging digital experiences by combining technical expertise with creative design. With a strong foundation in front-end development and programming, I bring ideas to life that are not just visually appealing but also functional and user-friendly.</p>
+    <p>💻 Technical Skills:</p>
+    <ul>
+      <li>Front-End Development: Mastery of HTML, CSS, JavaScript, Bootstrap.</li>
+      <li>Programming: Proficient in Java and Python, solving complex problems with efficient solutions.</li>
+      <li>UI/UX Design: Creating intuitive interfaces that prioritize the user journey while aligning with brand identity.</li>
+    </ul>
+  </section>
+
+  <section id="skills" class="skills">
+    <h2>Technical Skills</h2>
+    <div class="skill">
+      <p>Java: 75%</p>
+      <div class="progress-bar"><div class="progress" style="width: 75%;"></div></div>
+    </div>
+    <div class="skill">
+      <p>Python: 85%</p>
+      <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+    </div>
+    <div class="skill">
+      <p>HTML: 85%</p>
+      <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+    </div>
+    <div class="skill">
+      <p>CSS: 80%</p>
+      <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
+    </div>
+    <div class="skill">
+      <p>JavaScript: 70%</p>
+      <div class="progress-bar"><div class="progress" style="width: 70%;"></div></div>
+    </div>
+    <div class="skill">
+      <p>MySQL: 87%</p>
+      <div class="progress-bar"><div class="progress" style="width: 87%;"></div></div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+    <div class="project">
+      <p class="title">Railway Reservation Data Management System</p>
+      <div class="project-details">
+        <p>A system designed to manage railway reservations efficiently.</p>
+        <p>Skills: Java, MySQL</p>
+        <p>Tech Stack: Backend and Database Management</p>
+      </div>
+    </div>
+    <div class="project">
+      <p class="title">Socratic AI Teaching Assistant</p>
+      <div class="project-details">
+        <p>An AI-driven assistant to enhance educational experiences.</p>
+        <p>Skills: Python, UI/UX Design</p>
+        <p>Tech Stack: AI and Frontend</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="text" placeholder="Location">
+      <textarea placeholder="Message" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Torus Animation
+    const torusGeometry = new THREE.TorusGeometry(10, 3, 16, 100);
+    const torusMaterial = new THREE.MeshBasicMaterial({ color: 0xff6347, wireframe: true });
+    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+
+    scene.add(torus);
+
+    // Rotating Cube
+    const cubeGeometry = new THREE.BoxGeometry();
+    const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0x0077ff });
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(15, 0, 0);
+    scene.add(cube);
+
+    // AR/VR-Oriented Sphere Animation
+    const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
+    const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00, wireframe: false });
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.set(-10, 5, 0);
+    scene.add(sphere);
+
+    // Particle System
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 5000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 100;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      color: 0xffffff,
+    });
+
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // Lighting
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    camera.position.z = 30;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      torus.rotation.x += 0.01;
+      torus.rotation.y += 0.01;
+
+      cube.rotation.x += 0.08;
+      cube.rotation.y += 0.09;
+
+      sphere.rotation.y += 0.02;
+      sphere.rotation.x += 0.01;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
